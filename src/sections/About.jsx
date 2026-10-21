@@ -30,7 +30,7 @@ function About() {
   }, []);
 
   return (
-    <AnimatedSection className="c-space my-20 max-w-7xl mx-auto" id="about">
+    <AnimatedSection id="about" className="c-space my-20 max-w-7xl mx-auto">
       {/* 1. غيّرنا h-full إلى h-auto */}
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-auto">
         {/* Card 1 */}

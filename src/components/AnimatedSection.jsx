@@ -5,9 +5,11 @@ export default function AnimatedSection({
   className = "",
   delay = 0,
   yOffset = 50,
+  id,
 }) {
   return (
     <motion.section
+      id={id}
       // الحالة الابتدائية (قبل ما يظهر في الشاشة)
       initial={{ opacity: 0, y: yOffset }}
       // الحالة عند الوصول للسكشن
