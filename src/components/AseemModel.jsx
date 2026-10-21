@@ -51,4 +51,4 @@ export default function AseemModel(props) {
 }
 
 // Removed preload so that Suspense fallback (CanvasLoader) is shown while loading
-// useGLTF.preload("/models/aseemPort.glb");
+useGLTF.preload("/models/aseemPort.glb");

@@ -73,4 +73,4 @@ export default function DemoPc(props) {
   );
 }
 
-useGLTF.preload("/models/personal_computer.glb");
+// useGLTF.preload("/models/personal_computer.glb");

@@ -52,5 +52,3 @@ export default function Developer({ animationName = "idle", ...props }) {
     </group>
   );
 }
-
-useGLTF.preload("/models/Human.glb");
