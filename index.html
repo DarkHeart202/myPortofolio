@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/gif" href="/sharingan-blue.gif" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aseem | Portfolio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      window.addEventListener("load", () => {
+        // 1. البحث عن وسم الـ favicon أو إنشاؤه تلقائياً إن لم يكن موجوداً
+        let favicon = document.querySelector("link[rel*='icon']");
+        if (!favicon) {
+          favicon = document.createElement("link");
+          favicon.rel = "icon";
+          document.head.appendChild(favicon);
+        }
+
+        const img = new Image();
+        img.src = "/sharingan-blue.gif";
+
+        const canvas = document.createElement("canvas");
+        canvas.width = 32;
+        canvas.height = 32;
+        const ctx = canvas.getContext("2d");
+        let angle = 0;
+
+        img.onload = () => {
+          setInterval(() => {
+            ctx.clearRect(0, 0, 32, 32);
+            ctx.save();
+            ctx.translate(16, 16);
+            ctx.rotate((angle * Math.PI) / 180);
+            ctx.drawImage(img, -16, -16, 32, 32);
+            ctx.restore();
+
+            // 2. تحديث الرابط ببيانات الـ Canvas
+            favicon.href = canvas.toDataURL("image/png");
+            angle = (angle + 12) % 360; // سرعة الدوران
+          }, 50);
+        };
+      });
+    </script>
+  </body>
+</html>

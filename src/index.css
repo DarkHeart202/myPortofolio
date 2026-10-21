@@ -1,0 +1,392 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+@import "tailwindcss";
+
+body {
+  background: #030712;
+  font-family: var(--font-generalsans), sans-serif;
+  color: #ffffff;
+}
+* {
+  scroll-behavior: smooth;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 33px 33px; /* زيادة المسافة بين الدوائر لتقليل الكثافة */
+}
+
+@theme {
+  /* الخطوط الخاصة بيك */
+  --font-generalsans: "General Sans", sans-serif;
+  --font-fira: "Fira Code", monospace;
+
+  /* الألوان الكحلية الجديدة للمشروع */
+  /* الألوان الكحلية الجديدة للمشروع */
+  --color-navy: #030712; /* خلفية الصفحة الرئيسية */
+  --color-navy-100: #0b1329; /* خلفية الكروت والـ Form Container */
+  --color-navy-200: #111c38; /* لون الـ Inputs والـ Cards المفتوحة */
+  --color-navy-300: #1e293b; /* لون الحدود Borders والـ Faint Elements */
+  --color-navy-500: #293854; /* درجة أفتح للـ Hover أو خلفيات الـ Inputs المحددة */
+  --color-navy-600: #334366; /* درجة أفتح للأزرار والـ Active States */
+
+  /* درجات الأسود والأبيض الخاصة بيك */
+  --color-black-100: #010103;
+  --color-black-200: #0e0e10;
+  --color-black-300: #1c1c21;
+  --color-black-500: #3a3a49;
+  --color-black-600: #1a1a1a;
+
+  --color-white-800: #e4e4e6;
+  --color-white-700: #d6d9e9;
+  --color-white-600: #afb0b6;
+  --color-white-500: #62646c;
+}
+
+/* ==========================================
+   SPOTLIGHT BORDER UTILITY CLASS
+   ========================================== */
+.spotlight-card {
+  position: relative;
+  /* قيم الحركة التفاعلية */
+  --mx: -9999px;
+  --my: -9999px;
+  --spot-hsl: 190 100% 60%;
+  --spot-alpha: 0.85;
+
+  /* 🎯 1. إعدادات خاصة بدائرة الماوس فقط */
+  --mouse-spot-fade: 40px; /* صغّر أو كبّر حجم دائرة الماوس من هنا بحرية */
+  --mouse-blur: 60px; /* درجة البلور الخاصة بدائرة الماوس */
+
+  /* 🎯 2. إعدادات خاصة بالبوردر المضيء فقط */
+  --border-spot-fade: 160px; /* حجم انتشار الضوء على الحواف والبوردر */
+  --bw: 2.2px; /* سُمْك البوردر */
+
+  /* البوردر الافتراضي */
+  border: 1px solid var(--color-navy-300);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* 💡 طبقة 1: دائرة الماوس فقط (مستقلة تماماً) */
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    hsl(var(--spot-hsl) / calc(var(--spot-alpha) * 0.45)) 0%,
+    transparent var(--mouse-spot-fade) /* 👈 بتستخدم حجم الماوس المستقل */
+  );
+
+  filter: blur(var(--mouse-blur)); /* 👈 بلور خاص بدائرة الماوس فقط */
+  z-index: 1;
+}
+
+/* 💡 طبقة 2: إطار البوردر المضيء (مستقل تماماً) */
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    hsl(var(--spot-hsl) / var(--spot-alpha)) 0%,
+    transparent var(--border-spot-fade)
+      /* 👈 بتستخدم حجم انتشار البوردر المستقل */
+  );
+  padding: var(--bw);
+
+  /* تفريغ البوردر بـ Mask حاد وبدون بلور */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: 10;
+}
+
+/* Utilities الخاصة بالمشروع */
+
+@utility c-space {
+  @apply px-5;
+
+  @media (min-width: 640px) {
+    @apply px-10;
+  }
+}
+
+@utility head-text {
+  @apply text-3xl font-semibold text-gray_gradient;
+
+  @media (min-width: 640px) {
+    @apply text-4xl;
+  }
+}
+
+@utility nav-ul {
+  @apply flex flex-col items-center gap-4 relative z-20;
+
+  @media (min-width: 640px) {
+    @apply flex-row;
+  }
+
+  @media (min-width: 768px) {
+    @apply gap-6;
+  }
+}
+
+@utility nav-li {
+  @apply text-neutral-400 hover:text-white font-generalsans py-2;
+
+  @media (max-width: 639px) {
+    @apply hover:bg-blue-500/10 hover:border transition-colors duration-75 border-blue-500/20 w-full rounded-md px-5;
+  }
+}
+
+@utility nav-li_a {
+  @apply text-lg hover:text-white transition-colors;
+
+  @media (min-width: 768px) {
+    @apply text-base;
+  }
+}
+
+@utility nav-sidebar {
+  @apply absolute left-0 right-0 bg-navy-100 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto block;
+
+  @media (min-width: 640px) {
+    @apply hidden;
+  }
+}
+
+@utility text-gray_gradient {
+  @apply bg-gradient-to-r from-[#BEC1CF] from-60% via-[#D5D8EA] via-60% to-[#D5D8EA] to-100% bg-clip-text text-transparent;
+}
+
+/* Button Component */
+@utility btn {
+  @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md bg-black-300 transition-all active:scale-95 text-white mx-auto;
+}
+
+@utility btn-ping {
+  @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75;
+}
+
+@utility btn-ping_dot {
+  @apply relative inline-flex rounded-full h-3 w-3 bg-green-500;
+}
+
+/* Hero Section */
+@utility hero_tag {
+  @apply text-center text-3xl font-generalsans font-black !leading-normal;
+
+  @media (min-width: 640px) {
+    @apply text-4xl;
+  }
+  @media (min-width: 768px) {
+    @apply text-5xl;
+  }
+  @media (min-width: 1280px) {
+    @apply text-6xl;
+  }
+}
+
+/* About Section */
+@utility grid-container {
+  /* غيرنا bg-navy-100 لخلفية شبه شفافة مع إضافة backdrop-blur */
+  @apply w-full h-full border border-navy-300 bg-navy-100/60 backdrop-blur-md rounded-lg p-4 flex flex-col gap-5;
+
+  @media (min-width: 640px) {
+    @apply p-7;
+  }
+}
+
+@utility grid-headtext {
+  @apply text-xl font-semibold mb-2 text-white font-generalsans;
+}
+
+@utility grid-subtext {
+  @apply text-[#afb0b6] text-base font-generalsans;
+}
+
+@utility copy-container {
+  @apply flex justify-center items-center gap-2;
+}
+
+/* Projects Section */
+@utility arrow-btn {
+  @apply w-10 h-10 p-3 cursor-pointer active:scale-95 transition-all rounded-full
+         bg-[#0A1224] border border-blue-900/30 
+         flex items-center justify-center;
+}
+
+/* لمعة السهم الشمال باللون الأزرق */
+@utility arrow-btn-left {
+  @apply bg-[radial-gradient(circle_at_left,_rgba(59,130,246,0.25)_0%,_transparent_70%)] 
+         shadow-[-4px_0px_20px_rgba(59,130,246,0.15)] 
+         hover:border-blue-500/30;
+}
+
+/* لمعة السهم اليمين باللون الأزرق */
+@utility arrow-btn-right {
+  @apply bg-[radial-gradient(circle_at_right,_rgba(59,130,246,0.25)_0%,_transparent_70%)] 
+         shadow-[4px_0px_20px_rgba(59,130,246,0.15)] 
+         hover:border-blue-500/30;
+}
+
+@utility tech-logo {
+  @apply w-10 h-10 rounded-md p-2 bg-neutral-100/10 backdrop-blur-lg flex justify-center items-center;
+}
+
+/* Clients Section */
+@utility client-container {
+  @apply grid grid-cols-1 gap-5 mt-12;
+
+  @media (min-width: 768px) {
+    @apply grid-cols-2;
+  }
+}
+
+@utility client-review {
+  @apply rounded-lg p-5 col-span-1 bg-black-300/50;
+
+  @media (min-width: 768px) {
+    @apply p-10;
+  }
+}
+
+@utility client-content {
+  @apply flex flex-col justify-between items-start gap-5 mt-7;
+
+  @media (min-width: 1024px) {
+    @apply flex-row items-center;
+  }
+}
+
+/* Work Experience Section */
+@utility work-container {
+  @apply grid lg:grid-cols-3 grid-cols-1 gap-5 mt-12;
+}
+
+@utility work-canvas {
+  @apply lg:col-span-1 col-span-3 border border-navy-300 bg-navy-100/60 backdrop-blur-md rounded-lg h-96 lg:h-full;
+}
+
+@utility work-content {
+  @apply lg:col-span-2 col-span-3 border border-navy-300 bg-navy-100/60 backdrop-blur-md rounded-lg;
+}
+
+@utility work-content_container {
+  @apply grid grid-cols-[auto_1fr] items-start gap-5 transition-all ease-in-out duration-500 cursor-pointer hover:bg-navy-300 rounded-lg px-2.5;
+
+  @media (min-width: 640px) {
+    @apply px-5;
+  }
+}
+
+@utility work-content_logo {
+  @apply rounded-3xl w-16 h-16 p-2 bg-navy-500;
+}
+
+@utility work-content_bar {
+  @apply flex-1 w-0.5 mt-4 h-full bg-navy-300 group-hover:bg-navy-500 group-last:hidden;
+}
+
+/* Contact Section */
+@utility contact-container {
+  @apply max-w-xl relative z-10 px-5 mt-12;
+
+  @media (min-width: 640px) {
+    @apply px-10;
+  }
+}
+
+@utility field-label {
+  @apply text-lg text-white-600;
+}
+
+@utility field-input {
+  @apply w-full bg-navy-300 px-5 py-2 min-h-14 rounded-lg placeholder:text-white-500 text-lg text-white-800 shadow-black-200 shadow-2xl focus:outline-none;
+}
+
+@utility field-btn {
+  @apply bg-navy-500 px-5 py-2 min-h-12 rounded-lg shadow-black-200 shadow-2xl flex justify-center items-center text-lg text-white gap-3;
+}
+
+@utility field-btn_arrow {
+  @apply w-2.5 h-2.5 object-contain invert brightness-0;
+}
+
+/* Footer */
+@utility social-icon {
+  @apply w-12 h-12 rounded-full flex justify-center items-center 
+         bg-navy-300 border border-navy-200 
+         transition-all duration-300 ease-in-out cursor-pointer;
+
+  /* Hover: يكبر حاجة بسيطة ويرتفع مع توهج كحلي/سماوي */
+  &:hover {
+    @apply bg-navy-500 border-sky-600/40 -translate-y-1 scale-105;
+    box-shadow: 0 8px 20px -4px rgba(56, 189, 248, 0.25);
+  }
+
+  /* Active: يصغر عند الضغط (Click Down Effect) */
+  &:active {
+    @apply translate-y-0 scale-95 duration-100;
+    box-shadow: 0 2px 8px -2px rgba(56, 189, 248, 0.15);
+  }
+}
+
+/* Keyframes & Animations */
+.waving-hand {
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
+  display: inline-block;
+}
+
+.arrow-gradient {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 10%,
+    rgba(255, 255, 255, 0.000025) 50%,
+    rgba(255, 255, 255, 0.000025) 50%,
+    rgba(255, 255, 255, 0.025) 100%
+  );
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(14deg);
+  }
+  30% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-4deg);
+  }
+  60% {
+    transform: rotate(10deg);
+  }
+  70% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
