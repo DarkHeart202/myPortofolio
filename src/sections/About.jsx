@@ -106,7 +106,9 @@ function About() {
               <p className="grid-subtext">
                 I'm based in Egypt, with remote work available.
               </p>
-              <Button name="Contact Me" isBeam containerClass="w-full mt-4" />
+              <a href="#contact" className="w-full">
+                <Button name="Contact Me" isBeam containerClass="w-full mt-4" />
+              </a>
             </div>
           </div>
         </div>

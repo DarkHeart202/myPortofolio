@@ -191,32 +191,32 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
 export const workExperiences = [
   {
     id: 1,
-    name: "Framer",
-    pos: "Lead Web Developer",
-    duration: "2025 - Present",
+    name: "VS Code & Frontend Stack",
+    pos: "Frontend Developer | Lucid Innovation",
+    duration: "2024 - Present",
     title:
-      "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-    icon: "/assets/framer.svg",
+      "My daily setup at Lucid Innovation for transforming design systems into pixel-perfect, high-performance web applications using React and React libraries, Next.js, and Tailwind CSS.",
+    icon: "/assets/vsCode.svg", // تقدر تغير الأيقونة لـ vscode لو متاحة عندك
     animation: "victory",
   },
   {
     id: 2,
-    name: "Figma",
-    pos: "Web Developer",
-    duration: "2021 - 2022",
+    name: "Figma & Design Systems",
+    pos: "Senior UI/UX Designer | Al-Motawer Al-Moatamed",
+    duration: "2023 - 2025",
     title:
-      "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
+      "Leveraged Figma at Al-Motawer Al-Moatamed to lead end-to-end product design, creating high-fidelity interactive prototypes, user flows, and scalable design systems.",
     icon: "/assets/figma.svg",
     animation: "clapping",
   },
   {
     id: 3,
-    name: "Notion",
-    pos: "Junior Web Developer",
-    duration: "2021 - 2022",
+    name: "Framer & Product Design",
+    pos: "UI/UX Designer & Developer | Freelance",
+    duration: "2020 - 2023",
     title:
-      "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-    icon: "/assets/notion.svg",
+      "Used Framer and design tools during my freelance journey to deliver interactive web experiences and prototypes directly to clients, bridging design with code.",
+    icon: "/assets/framer.svg", // تقدر تغير الأيقونة لـ framer
     animation: "salute",
   },
 ];
